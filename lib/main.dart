@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'Presentation/Screen Splash/Screen Splash.dart';
 import 'Presentation/screen home/Screen_home.dart';
 
 void main() {
@@ -11,8 +12,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.brown,
+        inputDecorationTheme: const InputDecorationTheme(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                style: BorderStyle.solid,
+                width: 1,
+                color: Color.fromARGB(255, 251, 248, 248)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 0, color: Colors.amberAccent),
+          ),
+        ),
+      ),
+      home: ScreenSplash(),
     );
   }
 }

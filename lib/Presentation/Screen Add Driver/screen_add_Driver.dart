@@ -70,7 +70,7 @@ class TextFieldDriver extends StatelessWidget {
       textAlign: TextAlign.center,
       decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-          contentPadding: EdgeInsets.all(0),
+          contentPadding: EdgeInsets.all(18),
           hintText: hindtext,
           filled: true,
           fillColor: const Color.fromARGB(255, 238, 235, 235)),
