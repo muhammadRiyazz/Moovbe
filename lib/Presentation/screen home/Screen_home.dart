@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moovbe/Presentation/Screen%20Bus/screen_bus.dart';
 import 'package:moovbe/Presentation/Screen%20Drivers/screen%20Divers.dart';
 import 'package:moovbe/core/colors.dart';
 
@@ -11,7 +12,17 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final msize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Container(
+            height: 60,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 48, bottom: 10),
+              child: Image.asset(
+                'lib/assets/img/logo.png',
+                fit: BoxFit.cover,
+              ),
+            )),
+      ),
       body: Padding(
         padding: const EdgeInsets.only(top: 15, right: 15, left: 15),
         child: Column(
@@ -23,7 +34,7 @@ class HomePage extends StatelessWidget {
                     child: Container(
                   height: 0.25 * msize.height,
                   decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 168, 134, 33),
+                      color: Colors.red[700],
                       borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,7 +114,7 @@ class HomePage extends StatelessWidget {
                         Align(
                           alignment: Alignment.bottomRight,
                           child: Image.asset(
-                            'lib/assets/img/image 2.png',
+                            'lib/assets/img/Driver.png',
                             fit: BoxFit.fill,
                           ),
                         )
@@ -172,7 +183,13 @@ class HomePage extends StatelessWidget {
                           ),
                           const Spacer(),
                           TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return ScreenBus();
+                                  },
+                                ));
+                              },
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: Color.fromARGB(255, 168, 134, 33),

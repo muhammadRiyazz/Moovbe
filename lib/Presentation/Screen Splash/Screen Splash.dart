@@ -12,13 +12,13 @@ class ScreenSplash extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         color: Colors.red,
         child: Column(
           children: [
-            Spacer(),
+            const Spacer(),
             Center(child: Image.asset('lib/assets/img/logo.png')),
-            Spacer(),
+            const Spacer(),
             TextButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(
