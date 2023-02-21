@@ -50,14 +50,12 @@ class ScreenSplash extends StatelessWidget {
 
     final apitoken = sharedPreferences.getString('token');
     if (apitoken == null || apitoken.isEmpty) {
-      // ignore: use_build_context_synchronously
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
           return ScreenLogin();
         },
       ));
     } else {
-      // ignore: use_build_context_synchronously
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
           return HomePage();

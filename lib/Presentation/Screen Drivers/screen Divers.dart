@@ -3,20 +3,18 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:moovbe/Domain/Api_integration.dart';
 import 'package:moovbe/Domain/Modals/modal_Driver.dart';
+import 'package:moovbe/Domain/functions/oparations.dart';
+import 'package:moovbe/Presentation/Screen%20Drivers/widgets/add_Driver_button.dart';
+import 'package:moovbe/Presentation/screen%20home/Screen_home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/colors.dart';
 import '../Screen Add Driver/screen_add_Driver.dart';
 
-class ScreenDrivers extends StatefulWidget {
+class ScreenDrivers extends StatelessWidget {
   ScreenDrivers({super.key, required this.driverlist});
   List<DriverList> driverlist;
 
-  @override
-  State<ScreenDrivers> createState() => _ScreenDriversState();
-}
-
-class _ScreenDriversState extends State<ScreenDrivers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +25,7 @@ class _ScreenDriversState extends State<ScreenDrivers> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
-              '${widget.driverlist.length} Drivers Fount',
+              '${driverlist.length} Drivers Fount',
               style: const TextStyle(
                   color: Colors.black26,
                   fontSize: 16,
@@ -36,7 +34,7 @@ class _ScreenDriversState extends State<ScreenDrivers> {
           ),
           Expanded(
             child: ListView.separated(
-              itemCount: widget.driverlist.length,
+              itemCount: driverlist.length,
               separatorBuilder: (context, index) {
                 return const SizedBox(
                   height: 10,
@@ -68,13 +66,13 @@ class _ScreenDriversState extends State<ScreenDrivers> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  widget.driverlist[index].name,
+                                  driverlist[index].name,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.normal,
                                       fontSize: 17),
                                 ),
                                 Text(
-                                  'license no: ${widget.driverlist[index].licenseNo}',
+                                  'license no: ${driverlist[index].licenseNo}',
                                   textAlign: TextAlign.start,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
@@ -88,17 +86,14 @@ class _ScreenDriversState extends State<ScreenDrivers> {
                         //  const Spacer(),
                         TextButton(
                             onPressed: () async {
-                              final sharedPreferences =
-                                  await SharedPreferences.getInstance();
-                              final apikey =
-                                  sharedPreferences.getString('apikey');
-                              final apitoken =
-                                  sharedPreferences.getString('token');
-
-                              Network.deleteDriver(
-                                  apikey: apikey!,
-                                  driverid: widget.driverlist[index].id,
-                                  token: apitoken!);
+                              await deleteDriver(
+                                  index: index, driverlist: driverlist);
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(
+                                builder: (context) {
+                                  return HomePage();
+                                },
+                              ));
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -117,25 +112,7 @@ class _ScreenDriversState extends State<ScreenDrivers> {
               },
             ),
           ),
-          TextButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return AddDriver();
-                  },
-                ));
-              },
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: buttonclr, borderRadius: BorderRadius.circular(10)),
-                child: const Center(
-                    child: Text(
-                  'Add Driver',
-                  style: TextStyle(color: cwhite),
-                )),
-              ))
+          const AddDriverButton()
         ]),
       ),
     );

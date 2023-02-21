@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:moovbe/Domain/Api_integration.dart';
+import 'package:moovbe/Domain/functions/oparations.dart';
 import 'package:moovbe/Presentation/Screen%20Bus/screen_bus.dart';
 import 'package:moovbe/Presentation/Screen%20Drivers/screen%20Divers.dart';
 import 'package:moovbe/Presentation/screen%20home/widgets/bus_list.dart';
@@ -90,19 +91,7 @@ class HomePage extends StatelessWidget {
                 Expanded(
                     child: InkWell(
                   onTap: () async {
-                    final sharedPreferences =
-                        await SharedPreferences.getInstance();
-
-                    final apikey = sharedPreferences.getString('apikey');
-                    final apitoken = sharedPreferences.getString('token');
-
-                    log(apikey!);
-                    //log(apitoken!);
-
-                    final respList = await Network.getdriverlist(
-                        apikey: apikey, token: apitoken!);
-                    final driverlist = respList.driverList;
-                    log(driverlist.length.toString());
+                    final driverlist = await getdata();
                     // ignore: use_build_context_synchronously
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {

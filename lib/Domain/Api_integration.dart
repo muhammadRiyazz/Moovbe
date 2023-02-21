@@ -81,6 +81,7 @@ class Network {
       required String name,
       required String licenseno,
       required String token}) async {
+    log('message');
     final url =
         Uri.parse('http://flutter.noviindus.co.in/api/DriverApi/$apikey/');
 
@@ -107,6 +108,4 @@ class Network {
       'Authorization': 'Bearer $token',
     });
   }
-
-  getnewtoken({required}) {}
 }
