@@ -7,6 +7,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:moovbe/Domain/Api_integration.dart';
 import 'package:moovbe/Domain/Modals/modal_loginrspns.dart';
+import 'package:moovbe/Presentation/Screen%20Add%20Driver/screen_add_Driver.dart';
+import 'package:moovbe/Presentation/Screen%20Login/widgets/textfielss.dart';
 import 'package:moovbe/Presentation/screen%20home/Screen_home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,126 +18,106 @@ class ScreenLogin extends StatelessWidget {
   ScreenLogin({super.key});
   final TextEditingController usernamecontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              Container(
-                color: Colors.black,
-                height: 250,
-                width: double.infinity,
-                child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Image.asset('asset/img/Polygon 1.png')),
-              ),
-              Positioned(
-                left: 40,
-                bottom: 40,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Welcome',
-                      style: TextStyle(
-                          fontSize: 45,
-                          color: cwhite,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    Text(
-                      'Manage Your Bus and Drivers',
-                      style: TextStyle(fontSize: 19, color: cwhite),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Column(
+      body: Form(
+        key: _formkey,
+        child: Column(
+          children: [
+            Stack(
               children: [
-                TextFieldDriver(
-                  hindtext: 'Enter User Name',
-                  controller: usernamecontroller,
+                Container(
+                  color: Colors.black,
+                  height: 250,
+                  width: double.infinity,
+                  child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Image.asset('asset/img/Polygon 1.png')),
                 ),
-                const SizedBox(
-                  height: 17,
-                ),
-                TextFieldDriver(
-                  hindtext: 'Enter Password',
-                  controller: passwordcontroller,
-                ),
+                Positioned(
+                  left: 40,
+                  bottom: 40,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Welcome',
+                          style: TextStyle(
+                              fontSize: 45,
+                              color: cwhite,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        Text(
+                          'Manage Your Bus and Drivers',
+                          style: TextStyle(fontSize: 19, color: cwhite),
+                        )
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
-          ),
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: TextButton(
-                onPressed: () async {
-                  final Loginrspns data = await Network.login(
-                      username: usernamecontroller.text,
-                      password: passwordcontroller.text);
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(
+                children: [
+                  TextFieldlogin(
+                    hindtext: 'Enter User Name',
+                    controller: usernamecontroller,
+                    mvalue: 'admin_user',
+                  ),
+                  const SizedBox(
+                    height: 17,
+                  ),
+                  TextFieldlogin(
+                    mvalue: '123admin789',
+                    hindtext: 'Enter Password',
+                    controller: passwordcontroller,
+                  ),
+                ],
+              ),
+            ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: TextButton(
+                  onPressed: () async {
+                    if (_formkey.currentState!.validate()) {
+                      final Loginrspns data = await Network.login(
+                          username: usernamecontroller.text,
+                          password: passwordcontroller.text);
 
-                  //await storekey(key: data.urlId, token: data.access);
-
-                  if (data.status == true) {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return HomePage();
-                      },
-                    ));
-                  } else {
-                    log('message');
-                  }
-                },
-                child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 168, 134, 33),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: const Center(
-                      child: Text(
-                    'Log in',
-                    style: TextStyle(color: cwhite),
+                      if (data.status == true) {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return HomePage();
+                          },
+                        ));
+                      } else {
+                        log('message');
+                      }
+                    }
+                  },
+                  child: Container(
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 168, 134, 33),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: const Center(
+                        child: Text(
+                      'Log in',
+                      style: TextStyle(color: cwhite),
+                    )),
                   )),
-                )),
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
-    );
-  }
-
-  // storekey({required String key, required String token}) async {
-  //   final sharepreferances = await SharedPreferences.getInstance();
-
-  //   sharepreferances.setString('apikey', key);
-
-  //   sharepreferances.setString('token', token);
-  // }
-}
-
-class TextFieldDriver extends StatelessWidget {
-  const TextFieldDriver(
-      {super.key, required this.controller, required this.hindtext});
-  final String hindtext;
-  final TextEditingController controller;
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      textAlign: TextAlign.center,
-      decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-          contentPadding: EdgeInsets.all(20),
-          hintText: hindtext,
-          filled: true,
-          fillColor: Color.fromARGB(255, 227, 222, 222)),
     );
   }
 }

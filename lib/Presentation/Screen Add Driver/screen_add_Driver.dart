@@ -28,14 +28,14 @@ class _AddDriverState extends State<AddDriver> {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
-            TextFieldDriver(
+            TextFieldDriveradd(
               controller: namecontroller,
               hindtext: 'Enter Name',
             ),
             SizedBox(
               height: 10,
             ),
-            TextFieldDriver(
+            TextFieldDriveradd(
               controller: licensecontroller,
               hindtext: 'Enter Licence Number',
             ),
@@ -74,8 +74,8 @@ class _AddDriverState extends State<AddDriver> {
   }
 }
 
-class TextFieldDriver extends StatelessWidget {
-  const TextFieldDriver(
+class TextFieldDriveradd extends StatelessWidget {
+  const TextFieldDriveradd(
       {super.key, required this.controller, required this.hindtext});
   final String hindtext;
   final TextEditingController controller;

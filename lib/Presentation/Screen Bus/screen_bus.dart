@@ -52,7 +52,7 @@ class ScreenBus extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Align(
                       alignment: Alignment.bottomRight,
                       child: Padding(
@@ -86,7 +86,7 @@ class ScreenBus extends StatelessWidget {
                       Row(
                         children: [
                           SeatRow(seatno: '2*2' == mseatno ? 2 : 1),
-                          Spacer(),
+                          const Spacer(),
                           SeatRow(seatno: '2*2' == mseatno ? 2 : 3),
                         ],
                       ),
@@ -115,7 +115,7 @@ class SeatRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(seatno, (index) {
-        return SeateColumn();
+        return const SeateColumn();
       }),
     );
   }
