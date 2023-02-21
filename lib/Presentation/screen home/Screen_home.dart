@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:moovbe/Domain/Api_integration.dart';
 import 'package:moovbe/Presentation/Screen%20Bus/screen_bus.dart';
 import 'package:moovbe/Presentation/Screen%20Drivers/screen%20Divers.dart';
 import 'package:moovbe/core/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -62,7 +65,7 @@ class HomePage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Align(
                           alignment: Alignment.bottomRight,
                           child: Image.asset('lib/assets/img/image 2.png'))
@@ -75,18 +78,32 @@ class HomePage extends StatelessWidget {
                 Expanded(
                     child: InkWell(
                   onTap: () async {
-                    final List = Network.getdriverlist();
+                    log('message');
+                    final sharedPreferences =
+                        await SharedPreferences.getInstance();
 
+                    final apikey = sharedPreferences.getString('apikey');
+                    final apitoken = sharedPreferences.getString('token');
+
+                    //log(apikey!);
+
+                    final respList = await Network.getdriverlist(
+                        apikey: apikey!, token: apitoken!);
+                    final driverlist = respList.driverList;
+
+                    // ignore: use_build_context_synchronously
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return ScreenDrivers();
+                        return ScreenDrivers(
+                          driverlist: driverlist,
+                        );
                       },
                     ));
                   },
                   child: Container(
                     height: 0.25 * msize.height,
                     decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 28, 24, 11),
+                        color: const Color.fromARGB(255, 28, 24, 11),
                         borderRadius: BorderRadius.circular(10)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

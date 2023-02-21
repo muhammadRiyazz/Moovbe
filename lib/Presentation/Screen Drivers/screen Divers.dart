@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:moovbe/Domain/Modals/modal_Driver.dart';
 
 import '../../core/colors.dart';
 import '../Screen Add Driver/screen_add_Driver.dart';
 
 class ScreenDrivers extends StatelessWidget {
-  const ScreenDrivers({super.key});
-
+  const ScreenDrivers({super.key, required this.driverlist});
+  final List<DriverList> driverlist;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,9 +17,9 @@ class ScreenDrivers extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.symmetric(vertical: 10),
             child: Text(
-              '21 Buses Fount',
+              '${driverlist.length} Drivers Fount',
               style: TextStyle(
                   color: Colors.black26,
                   fontSize: 16,
@@ -27,9 +28,9 @@ class ScreenDrivers extends StatelessWidget {
           ),
           Expanded(
             child: ListView.separated(
-              itemCount: 4,
+              itemCount: driverlist.length,
               separatorBuilder: (context, index) {
-                return SizedBox(
+                return const SizedBox(
                   height: 10,
                 );
               },
@@ -55,15 +56,15 @@ class ScreenDrivers extends StatelessWidget {
                               horizontal: 14, vertical: 17),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
-                                'KSRTC',
+                                driverlist[index].name,
                                 style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     fontSize: 17),
                               ),
                               Text(
-                                'Swift Scania P-series',
+                                'license no: ${driverlist[index].licenseNo}',
                                 style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     fontSize: 16),

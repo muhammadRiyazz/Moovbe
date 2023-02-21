@@ -2,17 +2,27 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
+import 'package:moovbe/Domain/Modals/modal_Driver.dart';
 import 'package:moovbe/Domain/Modals/modal_loginrspns.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Network {
-  static getdriverlist() async {
+  static Future<Driver> getdriverlist(
+      {required String apikey, required String token}) async {
     final url =
-        Uri.parse('http://flutter.noviindus.co.in/api/DriverApi/4W4GS3L/');
+        Uri.parse('http://flutter.noviindus.co.in/api/DriverApi/$apikey/');
+    log('jjyy');
 
-    final resp = await http.post(url);
-    log(resp.body.toString());
+    final resp = await http.get(url, headers: {
+      'Authorization': 'Bearer $token',
+    });
 
-    return resp;
+    final json = jsonDecode(resp.body);
+    log(json.toString());
+
+    final data = Driver.fromJson(json);
+
+    return data;
   }
 
   static Future<Loginrspns> login(
@@ -28,7 +38,16 @@ class Network {
     final data = Loginrspns.fromJson(json);
 
     log(data.urlId);
+    final sharepreferances = await SharedPreferences.getInstance();
+
+    sharepreferances.setString('apikey', data.urlId);
+
+    sharepreferances.setString('token', data.access);
 
     return data;
+  }
+
+  getnewtoken() {
+    final url = Uri.parse('http://flutter.noviindus.co.in/api/LoginApi');
   }
 }

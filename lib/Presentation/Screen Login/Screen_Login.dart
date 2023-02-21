@@ -1,9 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:moovbe/Domain/Api_integration.dart';
 import 'package:moovbe/Domain/Modals/modal_loginrspns.dart';
 import 'package:moovbe/Presentation/screen%20home/Screen_home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/colors.dart';
 
@@ -29,7 +34,7 @@ class ScreenLogin extends StatelessWidget {
                   hindtext: 'Enter User Name',
                   controller: usernamecontroller,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 17,
                 ),
                 TextFieldDriver(
@@ -39,7 +44,7 @@ class ScreenLogin extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: TextButton(
@@ -48,11 +53,17 @@ class ScreenLogin extends StatelessWidget {
                       username: usernamecontroller.text,
                       password: passwordcontroller.text);
 
-                  // Navigator.push(context, MaterialPageRoute(
-                  //   builder: (context) {
-                  //     return HomePage();
-                  //   },
-                  // ));
+                  //await storekey(key: data.urlId, token: data.access);
+
+                  if (data.status == true) {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const HomePage();
+                      },
+                    ));
+                  } else {
+                    log('message');
+                  }
                 },
                 child: Container(
                   height: 50,
@@ -71,6 +82,14 @@ class ScreenLogin extends StatelessWidget {
       ),
     );
   }
+
+  // storekey({required String key, required String token}) async {
+  //   final sharepreferances = await SharedPreferences.getInstance();
+
+  //   sharepreferances.setString('apikey', key);
+
+  //   sharepreferances.setString('token', token);
+  // }
 }
 
 class TextFieldDriver extends StatelessWidget {
