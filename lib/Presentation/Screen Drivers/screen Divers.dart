@@ -90,12 +90,12 @@ class ScreenDrivers extends StatelessWidget {
                                   context: context,
                                   index: index,
                                   driverlist: driverlist);
-                              Navigator.pushReplacement(context,
+                              Navigator.pushAndRemoveUntil(context,
                                   MaterialPageRoute(
                                 builder: (context) {
                                   return HomePage();
                                 },
-                              ));
+                              ), (route) => false);
                             },
                             child: Container(
                               decoration: BoxDecoration(

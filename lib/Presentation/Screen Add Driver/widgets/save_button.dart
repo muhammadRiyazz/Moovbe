@@ -24,11 +24,11 @@ class SaveButton extends StatelessWidget {
               license: licensecontroller.text,
               name: namecontroller.text);
 
-          Navigator.pushReplacement(context, MaterialPageRoute(
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
             builder: (context) {
               return HomePage();
             },
-          ));
+          ), (route) => false);
         },
         child: Container(
           height: 50,
