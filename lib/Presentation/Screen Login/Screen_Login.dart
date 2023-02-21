@@ -22,9 +22,37 @@ class ScreenLogin extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            color: Colors.black,
-            height: 250,
+          Stack(
+            children: [
+              Container(
+                color: Colors.black,
+                height: 250,
+                width: double.infinity,
+                child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Image.asset('asset/img/Polygon 1.png')),
+              ),
+              Positioned(
+                left: 40,
+                bottom: 40,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      'Welcome',
+                      style: TextStyle(
+                          fontSize: 45,
+                          color: cwhite,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    Text(
+                      'Manage Your Bus and Drivers',
+                      style: TextStyle(fontSize: 19, color: cwhite),
+                    )
+                  ],
+                ),
+              )
+            ],
           ),
           Padding(
             padding: const EdgeInsets.all(25.0),
@@ -58,7 +86,7 @@ class ScreenLogin extends StatelessWidget {
                   if (data.status == true) {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return const HomePage();
+                        return HomePage();
                       },
                     ));
                   } else {

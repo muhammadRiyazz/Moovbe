@@ -8,9 +8,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/colors.dart';
 import '../Screen Add Driver/screen_add_Driver.dart';
 
-class ScreenDrivers extends StatelessWidget {
-  const ScreenDrivers({super.key, required this.driverlist});
-  final List<DriverList> driverlist;
+class ScreenDrivers extends StatefulWidget {
+  ScreenDrivers({super.key, required this.driverlist});
+  List<DriverList> driverlist;
+
+  @override
+  State<ScreenDrivers> createState() => _ScreenDriversState();
+}
+
+class _ScreenDriversState extends State<ScreenDrivers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +27,7 @@ class ScreenDrivers extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
-              '${driverlist.length} Drivers Fount',
+              '${widget.driverlist.length} Drivers Fount',
               style: const TextStyle(
                   color: Colors.black26,
                   fontSize: 16,
@@ -30,7 +36,7 @@ class ScreenDrivers extends StatelessWidget {
           ),
           Expanded(
             child: ListView.separated(
-              itemCount: driverlist.length,
+              itemCount: widget.driverlist.length,
               separatorBuilder: (context, index) {
                 return const SizedBox(
                   height: 10,
@@ -62,13 +68,13 @@ class ScreenDrivers extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  driverlist[index].name,
+                                  widget.driverlist[index].name,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.normal,
                                       fontSize: 17),
                                 ),
                                 Text(
-                                  'license no: ${driverlist[index].licenseNo}',
+                                  'license no: ${widget.driverlist[index].licenseNo}',
                                   textAlign: TextAlign.start,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
@@ -82,21 +88,23 @@ class ScreenDrivers extends StatelessWidget {
                         //  const Spacer(),
                         TextButton(
                             onPressed: () async {
-                              // final sharedPreferences =
-                              //     await SharedPreferences.getInstance();
-                              // final apikey =
-                              //     sharedPreferences.getString('apikey');
-                              // final apitoken =
-                              //     sharedPreferences.getString('token');
+                              final sharedPreferences =
+                                  await SharedPreferences.getInstance();
+                              final apikey =
+                                  sharedPreferences.getString('apikey');
+                              final apitoken =
+                                  sharedPreferences.getString('token');
 
-                              // Network.deleteDriver(
-                              //     apikey: apikey!,
-                              //     driverid: driverlist[index].id,
-                              //     token: apitoken!);
+                              Network.deleteDriver(
+                                  apikey: apikey!,
+                                  driverid: widget.driverlist[index].id,
+                                  token: apitoken!);
+                              setState(() {});
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 168, 134, 33),
+                                  color:
+                                      const Color.fromARGB(255, 168, 134, 33),
                                   borderRadius: BorderRadius.circular(7)),
                               child: const Padding(
                                 padding: EdgeInsets.all(12.0),

@@ -23,20 +23,20 @@ class DriverList {
   DriverList({
     required this.id,
     required this.name,
-    this.mobile,
+    required this.mobile,
     required this.licenseNo,
   });
 
   int id;
   String name;
-  String? mobile;
+  String mobile;
   String licenseNo;
 
   factory DriverList.fromJson(Map<String, dynamic> json) => DriverList(
-        id: json["id"],
-        name: json["name"],
-        mobile: json["mobile"],
-        licenseNo: json["license_no"],
+        id: json["id"] ?? 0,
+        name: json["name"] ?? 'name',
+        mobile: json["mobile"] ?? '',
+        licenseNo: json["license_no"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {

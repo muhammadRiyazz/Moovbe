@@ -19,9 +19,9 @@ class Network {
     });
 
     final json = jsonDecode(resp.body);
-    log(json.toString());
 
     final data = Driver.fromJson(json);
+    log(data.driverList.length.toString());
 
     return data;
   }
@@ -59,19 +59,21 @@ class Network {
     return data;
   }
 
-  // static Future<void> deleteDriver(
-  //     {required String apikey,
-  //     required int driverid,
-  //     required String token}) async {
-  //   final url =
-  //       Uri.parse('http://flutter.noviindus.co.in/api/DriverApi/$apikey/');
+  static Future<void> deleteDriver(
+      {required String apikey,
+      required int driverid,
+      required String token}) async {
+    final url =
+        Uri.parse('http://flutter.noviindus.co.in/api/DriverApi/$apikey/');
 
-  //   await http.delete(url, body: {
-  //     "driver_id": driverid,
-  //   }, headers: {
-  //     'Authorization': 'Bearer $token',
-  //   });
-  // }
+    final String id = driverid.toString();
+
+    await http.delete(url, body: {
+      "driver_id": id,
+    }, headers: {
+      'Authorization': 'Bearer $token',
+    });
+  }
 
   static Future<void> addDriver(
       {required String apikey,

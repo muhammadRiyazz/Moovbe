@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:moovbe/Domain/Api_integration.dart';
@@ -8,9 +9,13 @@ import 'package:moovbe/core/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({
+  HomePage({
     super.key,
   });
+
+  final List<String> seattype = ['2*2', '1*3'];
+  // final List<String> busname = [];
+  // final List<String>
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class HomePage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 48, bottom: 10),
               child: Image.asset(
-                'lib/assets/img/logo.png',
+                'asset/img/logo.png',
                 fit: BoxFit.cover,
               ),
             )),
@@ -68,7 +73,7 @@ class HomePage extends StatelessWidget {
                       const Spacer(),
                       Align(
                           alignment: Alignment.bottomRight,
-                          child: Image.asset('lib/assets/img/image 2.png'))
+                          child: Image.asset('asset/img/image 2.png'))
                     ],
                   ),
                 )),
@@ -78,19 +83,19 @@ class HomePage extends StatelessWidget {
                 Expanded(
                     child: InkWell(
                   onTap: () async {
-                    log('message');
                     final sharedPreferences =
                         await SharedPreferences.getInstance();
 
                     final apikey = sharedPreferences.getString('apikey');
                     final apitoken = sharedPreferences.getString('token');
 
-                    //log(apikey!);
+                    log(apikey!);
+                    //log(apitoken!);
 
                     final respList = await Network.getdriverlist(
-                        apikey: apikey!, token: apitoken!);
+                        apikey: apikey, token: apitoken!);
                     final driverlist = respList.driverList;
-
+                    log(driverlist.length.toString());
                     // ignore: use_build_context_synchronously
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
@@ -134,7 +139,7 @@ class HomePage extends StatelessWidget {
                         Align(
                           alignment: Alignment.bottomRight,
                           child: Image.asset(
-                            'lib/assets/img/Driver.png',
+                            'asset/img/Driver.png',
                             fit: BoxFit.fill,
                           ),
                         )
@@ -144,8 +149,8 @@ class HomePage extends StatelessWidget {
                 )),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
               child: Text(
                 '21 Buses Fount',
                 style: TextStyle(
@@ -158,7 +163,7 @@ class HomePage extends StatelessWidget {
               child: ListView.separated(
                 itemCount: 7,
                 separatorBuilder: (context, index) {
-                  return SizedBox(
+                  return const SizedBox(
                     height: 10,
                   );
                 },
@@ -178,7 +183,7 @@ class HomePage extends StatelessWidget {
                                     bottomLeft: Radius.circular(10)),
                                 color: Colors.black12),
                             height: double.maxFinite,
-                            child: Image.asset('lib/assets/img/image 3.png'),
+                            child: Image.asset('asset/img/image 3.png'),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
@@ -204,15 +209,21 @@ class HomePage extends StatelessWidget {
                           const Spacer(),
                           TextButton(
                               onPressed: () {
+                                math.Random random = math.Random();
+                                int number = random.nextInt(2);
+
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
-                                    return ScreenBus();
+                                    return ScreenBus(
+                                      mseatno: seattype[number],
+                                    );
                                   },
                                 ));
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: Color.fromARGB(255, 168, 134, 33),
+                                    color:
+                                        const Color.fromARGB(255, 168, 134, 33),
                                     borderRadius: BorderRadius.circular(7)),
                                 child: const Padding(
                                   padding: EdgeInsets.all(12.0),

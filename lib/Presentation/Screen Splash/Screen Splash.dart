@@ -17,7 +17,7 @@ class ScreenSplash extends StatelessWidget {
         child: Column(
           children: [
             const Spacer(),
-            Center(child: Image.asset('lib/assets/img/logo.png')),
+            Center(child: Image.asset('asset/img/logo.png')),
             const Spacer(),
             TextButton(
                 onPressed: () {
