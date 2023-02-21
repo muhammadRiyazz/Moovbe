@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:moovbe/Domain/Api_integration.dart';
+import 'package:moovbe/Domain/Modals/modal_loginrspns.dart';
 import 'package:moovbe/Presentation/screen%20home/Screen_home.dart';
 
 import '../../core/colors.dart';
@@ -32,7 +34,7 @@ class ScreenLogin extends StatelessWidget {
                 ),
                 TextFieldDriver(
                   hindtext: 'Enter Password',
-                  controller: usernamecontroller,
+                  controller: passwordcontroller,
                 ),
               ],
             ),
@@ -41,12 +43,16 @@ class ScreenLogin extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: TextButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return HomePage();
-                    },
-                  ));
+                onPressed: () async {
+                  final Loginrspns data = await Network.login(
+                      username: usernamecontroller.text,
+                      password: passwordcontroller.text);
+
+                  // Navigator.push(context, MaterialPageRoute(
+                  //   builder: (context) {
+                  //     return HomePage();
+                  //   },
+                  // ));
                 },
                 child: Container(
                   height: 50,
@@ -54,7 +60,7 @@ class ScreenLogin extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Color.fromARGB(255, 168, 134, 33),
                       borderRadius: BorderRadius.circular(10)),
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     'Log in',
                     style: TextStyle(color: cwhite),

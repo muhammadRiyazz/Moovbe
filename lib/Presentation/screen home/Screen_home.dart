@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moovbe/Domain/Api_integration.dart';
 import 'package:moovbe/Presentation/Screen%20Bus/screen_bus.dart';
 import 'package:moovbe/Presentation/Screen%20Drivers/screen%20Divers.dart';
 import 'package:moovbe/core/colors.dart';
@@ -73,7 +74,9 @@ class HomePage extends StatelessWidget {
                 ),
                 Expanded(
                     child: InkWell(
-                  onTap: () {
+                  onTap: () async {
+                    final List = Network.getdriverlist();
+
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
                         return ScreenDrivers();
