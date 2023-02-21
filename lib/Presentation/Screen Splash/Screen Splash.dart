@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:moovbe/Presentation/Screen%20Login/Screen_Login.dart';
+import 'package:moovbe/Presentation/screen%20home/Screen_home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/colors.dart';
 
@@ -21,11 +23,7 @@ class ScreenSplash extends StatelessWidget {
             const Spacer(),
             TextButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return ScreenLogin();
-                    },
-                  ));
+                  gotonext(context: context);
                 },
                 child: Container(
                   height: 50,
@@ -45,5 +43,26 @@ class ScreenSplash extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  gotonext({required BuildContext context}) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+
+    final apitoken = sharedPreferences.getString('token');
+    if (apitoken == null || apitoken.isEmpty) {
+      // ignore: use_build_context_synchronously
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return ScreenLogin();
+        },
+      ));
+    } else {
+      // ignore: use_build_context_synchronously
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return HomePage();
+        },
+      ));
+    }
   }
 }

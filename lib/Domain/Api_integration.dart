@@ -107,4 +107,6 @@ class Network {
       'Authorization': 'Bearer $token',
     });
   }
+
+  getnewtoken({required}) {}
 }
