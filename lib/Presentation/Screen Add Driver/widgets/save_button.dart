@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovbe/Presentation/screen%20home/Screen_home.dart';
+import 'package:moovbe/Presentation/widgets/snackbar.dart';
 import 'package:moovbe/core/colors.dart';
 
 import '../../../Domain/functions/oparations.dart';
@@ -19,15 +20,15 @@ class SaveButton extends StatelessWidget {
     return TextButton(
         onPressed: () async {
           await addDriver(
-              license: licensecontroller.text, name: namecontroller.text);
+              context: context,
+              license: licensecontroller.text,
+              name: namecontroller.text);
 
           Navigator.pushReplacement(context, MaterialPageRoute(
             builder: (context) {
               return HomePage();
             },
           ));
-          final snackbar = SnackBar(content: Text('Deleted'));
-          ScaffoldMessenger.of(context).showSnackBar(snackbar);
         },
         child: Container(
           height: 50,

@@ -87,7 +87,9 @@ class ScreenDrivers extends StatelessWidget {
                         TextButton(
                             onPressed: () async {
                               await deleteDriver(
-                                  index: index, driverlist: driverlist);
+                                  context: context,
+                                  index: index,
+                                  driverlist: driverlist);
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(
                                 builder: (context) {
