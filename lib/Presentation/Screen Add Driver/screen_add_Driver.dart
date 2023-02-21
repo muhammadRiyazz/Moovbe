@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:moovbe/Domain/Api_integration.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/colors.dart';
 
-class AddDriver extends StatelessWidget {
+class AddDriver extends StatefulWidget {
   AddDriver({super.key});
+
+  @override
+  State<AddDriver> createState() => _AddDriverState();
+}
+
+class _AddDriverState extends State<AddDriver> {
   final TextEditingController namecontroller = TextEditingController();
+
   final TextEditingController licensecontroller = TextEditingController();
 
   @override
@@ -32,12 +41,19 @@ class AddDriver extends StatelessWidget {
             ),
             Spacer(),
             TextButton(
-                onPressed: () {
-                  // Navigator.push(context, MaterialPageRoute(
-                  //   builder: (context) {
-                  //     return AddDriver();
-                  //   },
-                  // ));
+                onPressed: () async {
+                  final sharedPreferences =
+                      await SharedPreferences.getInstance();
+                  final apikey = sharedPreferences.getString('apikey');
+                  final apitoken = sharedPreferences.getString('token');
+
+                  await Network.addDriver(
+                      apikey: apikey!,
+                      mobile: '7034612195',
+                      name: namecontroller.text,
+                      licenseno: licensecontroller.text,
+                      token: apitoken!);
+                  Navigator.pop(context);
                 },
                 child: Container(
                   height: 50,
