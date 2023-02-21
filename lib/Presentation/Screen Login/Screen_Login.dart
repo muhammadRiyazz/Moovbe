@@ -30,7 +30,7 @@ class ScreenLogin extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  color: Colors.black,
+                  color: primeryclr,
                   height: 250,
                   width: double.infinity,
                   child: Align(
@@ -106,7 +106,7 @@ class ScreenLogin extends StatelessWidget {
                     height: 50,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 168, 134, 33),
+                        color: buttonclr,
                         borderRadius: BorderRadius.circular(10)),
                     child: const Center(
                         child: Text(

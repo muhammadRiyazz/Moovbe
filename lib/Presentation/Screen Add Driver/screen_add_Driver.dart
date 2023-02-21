@@ -59,7 +59,7 @@ class _AddDriverState extends State<AddDriver> {
                   height: 50,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 168, 134, 33),
+                      color: buttonclr,
                       borderRadius: BorderRadius.circular(10)),
                   child: const Center(
                       child: Text(

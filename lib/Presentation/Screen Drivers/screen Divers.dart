@@ -57,7 +57,7 @@ class _ScreenDriversState extends State<ScreenDrivers> {
                                   bottomLeft: Radius.circular(10)),
                               color: Colors.black12),
                           height: double.maxFinite,
-                          child: Image.asset('lib/assets/img/Ellipse.png'),
+                          child: Image.asset('asset/img/Ellipse.png'),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
@@ -99,12 +99,10 @@ class _ScreenDriversState extends State<ScreenDrivers> {
                                   apikey: apikey!,
                                   driverid: widget.driverlist[index].id,
                                   token: apitoken!);
-                              setState(() {});
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 168, 134, 33),
+                                  color: buttonclr,
                                   borderRadius: BorderRadius.circular(7)),
                               child: const Padding(
                                 padding: EdgeInsets.all(12.0),
@@ -131,8 +129,7 @@ class _ScreenDriversState extends State<ScreenDrivers> {
                 height: 50,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 168, 134, 33),
-                    borderRadius: BorderRadius.circular(10)),
+                    color: buttonclr, borderRadius: BorderRadius.circular(10)),
                 child: const Center(
                     child: Text(
                   'Add Driver',

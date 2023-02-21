@@ -92,4 +92,19 @@ class Network {
       'Authorization': 'Bearer $token',
     });
   }
+
+  updateDriver(
+      {required String apikey,
+      required busid,
+      required driverid,
+      required String token}) async {
+    final url = Uri.parse(
+        'http://flutter.noviindus.co.in/api/AssignDriverApi/$apikey/');
+    await http.post(url, body: {
+      "bus_id": busid,
+      "driver_id": driverid,
+    }, headers: {
+      'Authorization': 'Bearer $token',
+    });
+  }
 }

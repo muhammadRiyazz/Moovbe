@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moovbe/core/colors.dart';
 
 import 'Presentation/Screen Splash/Screen Splash.dart';
 import 'Presentation/screen home/Screen_home.dart';
@@ -15,7 +16,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.brown,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: primeryclr,
+        ),
         inputDecorationTheme: const InputDecorationTheme(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(

@@ -17,7 +17,7 @@ class TextFieldlogin extends StatelessWidget {
         if (value == null || value.isEmpty) {
           return 'required';
         } else if (mvalue != value) {
-          return "enter valid feild";
+          return "Enter valid field";
         } else {
           return null;
         }

@@ -13,7 +13,9 @@ class ScreenBus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Swift Scania P-series'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -22,8 +24,7 @@ class ScreenBus extends StatelessWidget {
               height: 130,
               width: double.infinity,
               decoration: BoxDecoration(
-                  color: Colors.brown[900],
-                  borderRadius: BorderRadius.circular(10)),
+                  color: primeryclr, borderRadius: BorderRadius.circular(10)),
               child: Row(
                 children: [
                   Padding(

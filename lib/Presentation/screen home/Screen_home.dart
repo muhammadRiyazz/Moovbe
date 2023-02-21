@@ -1,10 +1,10 @@
 import 'dart:developer';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:moovbe/Domain/Api_integration.dart';
 import 'package:moovbe/Presentation/Screen%20Bus/screen_bus.dart';
 import 'package:moovbe/Presentation/Screen%20Drivers/screen%20Divers.dart';
+import 'package:moovbe/Presentation/screen%20home/widgets/bus_list.dart';
 import 'package:moovbe/core/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,23 +14,30 @@ class HomePage extends StatelessWidget {
   });
 
   final List<String> seattype = ['2*2', '1*3'];
-  // final List<String> busname = [];
-  // final List<String>
+  final List<String> busname = [
+    'volvo',
+    'KSRTC',
+    'Transporst',
+    'low floor',
+  ];
 
   @override
   Widget build(BuildContext context) {
     final msize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Container(
-            height: 60,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 48, bottom: 10),
-              child: Image.asset(
-                'asset/img/logo.png',
-                fit: BoxFit.cover,
-              ),
-            )),
+        automaticallyImplyLeading: false,
+        title: Center(
+          child: SizedBox(
+              height: 60,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Image.asset(
+                  'asset/img/logo.png',
+                  fit: BoxFit.cover,
+                ),
+              )),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 15, right: 15, left: 15),
@@ -43,7 +50,7 @@ class HomePage extends StatelessWidget {
                     child: Container(
                   height: 0.25 * msize.height,
                   decoration: BoxDecoration(
-                      color: Colors.red[700],
+                      color: buttonclr,
                       borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,85 +166,7 @@ class HomePage extends StatelessWidget {
                     fontWeight: FontWeight.w500),
               ),
             ),
-            Expanded(
-              child: ListView.separated(
-                itemCount: 7,
-                separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    height: 10,
-                  );
-                },
-                itemBuilder: (context, index) {
-                  return Container(
-                      height: 80,
-                      decoration: BoxDecoration(
-                          color: cwhite,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 90,
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    bottomLeft: Radius.circular(10)),
-                                color: Colors.black12),
-                            height: double.maxFinite,
-                            child: Image.asset('asset/img/image 3.png'),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 14, vertical: 17),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  'KSRTC',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 17),
-                                ),
-                                Text(
-                                  'Swift Scania P-series',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 16),
-                                )
-                              ],
-                            ),
-                          ),
-                          const Spacer(),
-                          TextButton(
-                              onPressed: () {
-                                math.Random random = math.Random();
-                                int number = random.nextInt(2);
-
-                                Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) {
-                                    return ScreenBus(
-                                      mseatno: seattype[number],
-                                    );
-                                  },
-                                ));
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 168, 134, 33),
-                                    borderRadius: BorderRadius.circular(7)),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(12.0),
-                                  child: Text(
-                                    'Manage',
-                                    style: TextStyle(color: cwhite),
-                                  ),
-                                ),
-                              ))
-                        ],
-                      ));
-                },
-              ),
-            ),
+            Buslists(busname: busname, seattype: seattype),
           ],
         ),
       ),
